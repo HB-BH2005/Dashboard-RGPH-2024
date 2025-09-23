@@ -1,0 +1,7 @@
+Pour afficher le dashboard, il faut installer les librairies suivantes :
+streamlit
+openpyxl
+Python
+pandas
+plotly
++ Dans terminal : rgph_dashboard> streamlit run main.py
