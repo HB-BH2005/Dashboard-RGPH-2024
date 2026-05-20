@@ -99,3 +99,22 @@ Voici la structure des fichiers et dossiers du projet :
 **Hadil Barzani**  
 Étudiant à l'ESI  
 Stagiaire au Haut-Commissariat au Plan – DSIS
+
+---
+
+## Déploiement
+
+- **URL de déploiement ** : https://dashboard-rgph-2024.streamlit.app/
+
+Pour exécuter localement :
+
+```bash
+python -m pip install -r requirements.txt
+streamlit run main.py
+```
+
+Pour déployer (exemples) :
+- Streamlit Cloud : téléversez le dépôt et ajoutez `main.py` comme script de démarrage.
+- Heroku / Railway / Render : créez un service Python, installez `requirements.txt` et lancez `streamlit run main.py`.
+
+Remplacez `your-app-name` par le nom choisi pour votre application Streamlit et utilisez l'URL fournie après le déploiement.

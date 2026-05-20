@@ -139,6 +139,32 @@ st.markdown("""
             </style>
 """, unsafe_allow_html=True)
 
+# Responsive styles for smaller screens
+st.markdown("""
+    <style>
+        @media (max-width: 900px) {
+            .ensemble-card, .milieu-line {
+                flex-direction: column !important;
+                gap: 12px !important;
+                align-items: center;
+            }
+            .card {
+                width: 100% !important;
+                max-width: 420px;
+                margin: 0 auto;
+            }
+            .custom-header {
+                flex-direction: column !important;
+                gap: 8px !important;
+                text-align: center;
+            }
+            .custom-header img { height: 50px; }
+            img { max-width: 100%; height: auto; }
+            .section-title, .subtitle { text-align: center; }
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # --- Configuration Streamlit ---
 st.set_page_config(page_title="Dashboard RGPH 2024", layout="wide")
 

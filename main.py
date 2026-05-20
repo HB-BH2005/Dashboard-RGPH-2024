@@ -101,22 +101,61 @@ st.markdown("""
             gap: 30px;
             justify-content: center;
             margin-top: 40px;
+            flex-wrap: wrap;
         }
 
         .stats-box {
             background-color: #6B0039;
             color: #f8f4f7;
             border-radius: 16px;
-            padding: 40px 30px;
-            width: 45%;
+            padding: 32px 28px;
+            width: 100%;
+            max-width: 620px;
             transition: transform 0.3s ease;
-            cursor: pointer;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         .stats-box:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
+        }
+        /* Responsive behavior */
+        @media (max-width: 900px) {
+            .stats-container {
+                flex-direction: column;
+                gap: 16px;
+                align-items: center;
+                margin-top: 20px;
+            }
+            .stats-box {
+                width: 90% !important;
+                padding: 20px !important;
+            }
+            .custom-header {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            .custom-header img {
+                height: 50px;
+            }
+            .header-text h1 {
+                font-size: 20px;
+                padding: 8px;
+            }
+            .milieu-line, .ensemble-card {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .card {
+                width: 100% !important;
+                max-width: 420px;
+                margin: 0 auto;
+            }
+            img {
+                max-width: 100%;
+                height: auto;
+            }
         }
 
         .stats-box h2 {
@@ -244,8 +283,7 @@ if st.session_state.menu == "Accueil":
         st.rerun()
 
 
-
- # === PAGE: À propos ===       
+ # === PAGE: À propos ===
 elif st.session_state.menu == "À propos":
     st.title("À propos")
     st.markdown("<h3 class='subtitle'>Qui sommes-nous ?</h3>", unsafe_allow_html=True)
@@ -265,6 +303,7 @@ elif st.session_state.menu == "À propos":
         "Comment sont collectées les données ?",
         "Comment puis-je vous contacter si ma question n'apparaît pas dans la FAQ ?"
     ])
+
     if question == "C'est quoi le HCP ?":
         st.info("""
         Le **Haut-Commissariat au Plan (HCP)** est l'organisme marocain chargé de la production, 
@@ -278,8 +317,6 @@ elif st.session_state.menu == "À propos":
         Il permet d'obtenir des données fiables pour la planification et les politiques publiques.
         """)
 
-
-
     elif question == "Quel est l'objectif de ce dashboard ?":
         st.markdown("""
         <div style='background-color:#f0f2f6; padding:15px; border-left:5px solid #91c2f9; border-radius:5px'>
@@ -292,54 +329,55 @@ elif st.session_state.menu == "À propos":
         </div>
         """, unsafe_allow_html=True)
 
-
     elif question == "Comment sont collectées les données ?":
         st.info("""
         Les données sont collectées par des enquêteurs sur le terrain via des formulaires, puis 
         centralisées et traitées par le HCP. Elles sont ensuite structurées dans des fichiers Excel analysés ici.
         """)
+
     elif question == "Comment puis-je vous contacter si ma question n'apparaît pas dans la FAQ ?":
         st.markdown("""
-        <div style="background-color:#f0f2f6; padding:10px; border-radius:5px;">
-            \U0001F4E7 Vous pouvez me contacter par email : 
-            <a href="mailto:hadilbarzani@esi.ac.ma">hadilbarzani@esi.ac.ma</a><br>
-            Ou \U0001F4DE par téléphone : 
-            <a href="tel:+212767960379">+212 7 67 96 03 79</a>
+        <div style="background-color:#f0f2f6; padding:12px; border-radius:6px; font-size:14px; line-height:1.4">
+            <p>✉️ Email: <a href="mailto:hadilbarzani@esi.ac.ma">hadilbarzani@esi.ac.ma</a></p>
+            <p>📞 Téléphone: <a href="tel:+212767960379">+212 7 67 96 03 79</a></p>
         </div>
         """, unsafe_allow_html=True)
 
-# === PAGE: STATISTIQUES 0 ===
+    # === PAGE: STATISTIQUES ===
 elif st.session_state.menu == "Statistiques":
     st.title("Statistiques")
-    st.markdown("""
-    <div class="stats-container">
-        <div class="stats-box" >
+
+    col1, col2 = st.columns(2, gap="large")
+
+    with col1:
+        st.markdown("""
+        <div class="stats-box">
             <h2>Population</h2>
             <p>
-                 Dans cette section, vous pouvez consulter les <strong>principales statistiques démographiques, éducatives et sur l'emploi</strong> 
-            du RGPH 2024, ainsi que des interprétations qui aident à mieux comprendre la population marocaine.
+                 Dans cette section, vous pouvez consulter les <strong>principales statistiques démographiques, éducatives et sur l'emploi</strong>
+                 du RGPH 2024, ainsi que des interprétations qui aident à mieux comprendre la population marocaine.
             </p>
         </div>
+        """, unsafe_allow_html=True)
+
+        if st.button("Voir les statistiques de la Population", key="stat_pop"):
+            st.switch_page("pages/Analyse Statistique de la Population.py")
+
+    with col2:
+        st.markdown("""
         <div class="stats-box">
             <h2>Ménage</h2>
             <p>
-                Cette section présente les données liées aux <strong>logements et conditions de vie</strong> : 
-                type de logement, confort, infrastructures, densité, accès aux services... 
+                Cette section présente les données liées aux <strong>logements et conditions de vie</strong> :
+                type de logement, confort, infrastructures, densité, accès aux services...
                 Des indicateurs macro sont interprétés pour mieux comprendre la qualité de vie des ménages.
             </p>
         </div>
-    </div>
-""", unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
-    col1, col2 = st.columns(2)
-
-    with col1:
-        if st.button("Voir les statistiques de la Population", key="stat_pop"):
-            st.switch_page("pages/Analyse Statistique de la Population.py")  
-
-    with col2:
         if st.button("Voir les statistiques des Ménages", key="stat_menage"):
             st.switch_page("pages/Analyse Statistique des Ménages.py")
+
 
 # === PAGE: TABLEAU DE POPULATION ===
 elif st.session_state.menu == "Tableau de population":
